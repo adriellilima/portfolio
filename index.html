@@ -145,15 +145,9 @@ ul,ol{margin:0;padding:0;list-style:none}
 .float-chip--c{right:-2%;top:52%;animation-delay:-4s}
 @keyframes bob{50%{translate:0 -10px}}
 @media (max-width:560px){.float-chip--a{left:-2%}.float-chip--c{right:-4%}}
-.stat-card{position:absolute;z-index:3;left:-4%;bottom:-2%;width:min(100%,23.5rem);padding:20px}
-@media (max-width:960px){.hero__side{min-height:0;padding-top:clamp(15rem,62vw,24rem)}.scene{inset:0 -8% auto;height:clamp(18rem,72vw,27rem)}.stat-card{position:relative;left:auto;bottom:auto;width:min(100%,24rem)}}
-.stat-card h2{font-size:15px;font-weight:500;letter-spacing:-.01em}
-.stat-card p{margin-top:4px;font-size:13px;color:var(--muted)}
-.stats{margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--glass-line)}
-.stats div{padding-top:14px}
-.stats dt{font-size:clamp(1.5rem,2.2vw,1.875rem);letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
-.stats dd{margin:6px 0 0;font-size:11px;color:var(--muted);line-height:1.3}
-.stat-card .btn{width:100%;margin-top:18px}
+.stat-card{position:absolute;z-index:3;left:58%;bottom:8%;transform:translateX(-50%)}
+.stat-card .btn{height:52px;padding:0 28px}
+@media (max-width:960px){.hero__side{min-height:0;padding-top:clamp(15rem,62vw,24rem)}.scene{inset:0 -8% auto;height:clamp(18rem,72vw,27rem)}.stat-card{position:relative;left:auto;bottom:auto;transform:none;justify-self:center}}
 
 /* ---------- marcas ---------- */
 .brands{border-block:1px solid var(--line-soft);padding-block:22px;overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
@@ -196,7 +190,17 @@ a.tile:active{transform:scale(.98)}
 .filters sup{font-size:10px;margin-left:3px;opacity:.6}
 .projects{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.5rem,2.5vw,2rem) clamp(.75rem,1.5vw,1.25rem)}
 @media (max-width:1000px){.projects{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:600px){.projects{grid-template-columns:1fr}}
+@media (min-width:601px){#grid-bar{display:none}}
+@media (max-width:600px){
+  .projects{grid-template-columns:1fr}
+  /* celular: lojas e landing pages em carrossel de arrastar */
+  #grid{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(var(--gutter) * -1);padding:4px var(--gutter) 12px;scroll-padding-inline:var(--gutter);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  #grid::-webkit-scrollbar{display:none}
+  #grid .card{flex:0 0 84%;scroll-snap-align:start;align-content:start}
+  #grid .card.reveal{opacity:1;transform:none;filter:none}
+}
+#grid-bar{position:relative;height:2px;max-width:12rem;margin:10px auto 0;border-radius:2px;background:#d4e1e722;overflow:hidden}
+#grid-bar i{position:absolute;inset:0 auto 0 0;border-radius:inherit;background:var(--ice);transition:transform .15s linear}
 .card{display:grid;gap:14px;text-align:left;width:100%;transition:transform .2s var(--ease)}
 .card[hidden]{display:none}
 .card:active{transform:scale(.98)}
@@ -237,7 +241,7 @@ a.tile:active{transform:scale(.98)}
 .universe[data-motion] .universe__msg{z-index:60;position:absolute;top:50%;left:50%;width:min(34rem,calc(100% - 2*var(--gutter)));margin:0;transform:translate(-50%,-50%);opacity:0;pointer-events:none;will-change:opacity,transform}
 .universe[data-motion][data-msg] .universe__msg{pointer-events:auto}
 .universe[data-motion] .cloud{position:absolute;inset:0;display:block;max-width:none;-webkit-mask:radial-gradient(ellipse 75% 75% at 50% 50%,#000 60%,transparent 100%);mask:radial-gradient(ellipse 75% 75% at 50% 50%,#000 60%,transparent 100%)}
-.universe[data-motion] .flight{--w:clamp(110px,11vw,180px);position:absolute;top:50%;left:50%;width:var(--w);margin:calc(var(--w) * -.625) 0 0 calc(var(--w) * -.5);will-change:transform}
+.universe[data-motion] .flight{--w:clamp(100px,9.6vw,160px);position:absolute;top:50%;left:50%;width:var(--w);margin:calc(var(--w) * -.625) 0 0 calc(var(--w) * -.5);will-change:transform}
 .universe[data-motion] .flight:hover{z-index:50!important}
 .universe[data-motion] .tile-cover span{position:absolute;left:0;right:0;bottom:0;padding:24px 12px 10px;border-radius:0 0 12px 12px;background:linear-gradient(180deg,transparent,#030507d9);color:#fff;opacity:0;transition:opacity .2s}
 .universe[data-motion] .tile-cover:hover span,.universe[data-motion] .tile-cover:focus-visible span{opacity:1}
@@ -248,6 +252,13 @@ a.tile:active{transform:scale(.98)}
 /* catálogo completo */
 .case.catalog{width:min(72rem,calc(100% - 24px))}
 .universe:not([data-motion]) .flight[data-dup]{display:none}
+/* celular / sem movimento: carrossel de arrastar */
+.universe:not([data-motion]) .cloud{display:flex;max-width:none;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(var(--gutter) * -1);padding:4px var(--gutter) 16px;scroll-padding-inline:var(--gutter);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.universe:not([data-motion]) .cloud::-webkit-scrollbar{display:none}
+.universe:not([data-motion]) .flight{flex:0 0 min(64%,260px);scroll-snap-align:start}
+.carousel-bar{display:none}
+.universe:not([data-motion]) .carousel-bar{display:block;position:relative;height:2px;max-width:12rem;margin:8px auto 0;border-radius:2px;background:#d4e1e722;overflow:hidden}
+.carousel-bar i{position:absolute;inset:0 auto 0 0;width:30%;border-radius:inherit;background:var(--ice);transition:transform .15s linear}
 .catalog .projects{margin-top:28px}
 
 /* ---------- processo ---------- */
@@ -278,6 +289,16 @@ a.tile:active{transform:scale(.98)}
 .skills{margin-top:clamp(2rem,4vw,3rem);display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
 @media (max-width:560px){.skills{grid-template-columns:1fr}}
 .skills h4{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:400;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.tools{margin-top:clamp(2rem,4vw,3rem)}
+.tools h4{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:400;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.tools ul{margin-top:16px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:560px){.tools ul{grid-template-columns:1fr}}
+.tool{display:flex;align-items:center;gap:14px;padding:12px;border:1px solid var(--line-soft);border-radius:var(--radius);background:var(--surface);transition:border-color .3s,transform .3s var(--ease)}
+.tool:hover{border-color:var(--line);transform:translateY(-2px)}
+.tool__ic{flex-shrink:0;width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:var(--bg);color:var(--fg);font-size:19px;font-weight:500;letter-spacing:-.02em;box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--fg,#fff) 55%,transparent)}
+.tool__ic svg{width:22px;height:22px}
+.tool b{display:block;font-weight:500;font-size:15px}
+.tool small{display:block;font-size:13px;color:var(--muted);line-height:1.35}
 .skills li{padding:11px 0;border-bottom:1px solid var(--line-soft);font-size:16px}
 
 /* ---------- número grande ---------- */
@@ -425,15 +446,7 @@ a.tile:active{transform:scale(.98)}
         <span class="float-chip float-chip--a glass" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="3" width="12" height="10" rx="2"/><path d="M2 6h12"/></svg>UX/UI</span>
         <span class="float-chip float-chip--b glass" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5 2h6v2l1 2v8H4V6l1-2z"/><path d="M4 8h8"/></svg>Rótulos</span>
         <span class="float-chip float-chip--c glass" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 6h10l-1 8H4zM6 6V4a2 2 0 0 1 4 0v2"/></svg>Eventos</span>
-        <div class="stat-card glass">
-          <h2>Projetos neste portfólio</h2>
-          <p>UX/UI e design gráfico, do digital ao ponto de venda.</p>
-          <dl class="stats">
-            <div><dt id="n-proj">9</dt><dd>projetos</dd></div>
-            <div><dt>2</dt><dd>lojas online</dd></div>
-            <div><dt>3</dt><dd>landing pages</dd></div>
-            <div><dt>4</dt><dd>rótulos e embalagens</dd></div>
-          </dl>
+        <div class="stat-card">
           <a class="btn btn--primary" href="#contato">Fale comigo
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
         </div>
@@ -468,7 +481,7 @@ a.tile:active{transform:scale(.98)}
         <div class="tile"><span class="n">02</span><div><h3>Landing pages</h3><p>Caminho curto até o orçamento pelo WhatsApp.</p></div></div>
         <div class="tile tile--blue"><span class="n">03</span><div><h3>Jornada do cliente</h3><p>Do cadastro ao pagamento, sem travar.</p></div></div>
         <a class="tile tile--violet" href="#design"><span class="n">04 · Design gráfico</span><div><h3>Rótulos</h3><p>Marca, produto e sabor lidos em segundos.</p></div></a>
-        <a class="tile" href="#design"><span class="n">05</span><div><h3>Embalagens &amp; eventos</h3><p>Flow pack, sachês e a identidade completa de um simpósio.</p></div></a>
+        <a class="tile" href="#design"><span class="n">05</span><div><h3>Embalagens &amp; eventos</h3><p>Flow pack, sachês e a identidade de simpósios em quatro estados.</p></div></a>
         <div class="tile tile--wide"><span class="n">06</span><div><h3>Usabilidade &amp; B2B</h3><p>Testes e ajustes com a loja já no ar e vendendo.</p></div></div>
         <a class="tile tile--wide tile--cta" href="#contato">
           <div class="arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h12M9 3l5 5-5 5"/></svg></div>
@@ -489,6 +502,7 @@ a.tile:active{transform:scale(.98)}
         <p class="lead">E-commerce do zero, melhorias em loja que já vende e páginas feitas para levar ao orçamento.</p>
       </div>
       <div class="projects" id="grid"></div>
+      <div id="grid-bar" aria-hidden="true"><i></i></div>
     </div>
   </section>
 
@@ -505,6 +519,7 @@ a.tile:active{transform:scale(.98)}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg></button>
       </div>
       <ul class="cloud" id="cloud" aria-label="Trabalhos de design gráfico"></ul>
+      <div class="carousel-bar" aria-hidden="true"><i id="cbar"></i></div>
       <div class="universe__hint" id="hint" aria-hidden="true"><i></i>Role para explorar</div>
     </div>
   </section>
@@ -537,10 +552,22 @@ a.tile:active{transform:scale(.98)}
       </figure>
       <div>
         <span class="eyebrow">Sobre mim</span>
-        <p class="statement" id="statement" style="margin-top:20px">Trabalho com UX/UI para e-commerce e com design gráfico para produtos de varejo. Participo das conversas de logística, pagamento e cadastro, porque uma loja bonita que não conversa com a operação *não *vende.</p>
+        <p class="statement" id="statement" style="margin-top:20px">Trabalho na conexão entre *design, *tecnologia *e *negócios. Tenho experiência em UX/UI para e-commerce, produtos digitais e design visual, transformando problemas complexos em experiências mais simples, intuitivas e funcionais.</p>
+        <p class="lead" style="margin-top:24px;max-width:52ch">Gosto de olhar além da interface, entender o comportamento das pessoas e conectar cada decisão de design ao funcionamento real do produto.</p>
         <div class="skills reveal">
           <div><h4>UX/UI</h4><ul><li>Jornada do cliente</li><li>Fluxos</li><li>Interface de loja</li><li>Landing pages</li><li>Usabilidade · B2B</li></ul></div>
           <div><h4>Design gráfico</h4><ul><li>Rótulos</li><li>Embalagens</li><li>Mockups</li><li>Peças de inauguração</li><li>Identidade de eventos</li></ul></div>
+        </div>
+        <div class="tools">
+          <h4>Ferramentas</h4>
+          <ul>
+            <li class="tool"><span class="tool__ic" style="--bg:#001e36;--fg:#31a8ff">Ps</span><span><b>Photoshop</b><small>Tratamento de imagem e mockups</small></span></li>
+            <li class="tool"><span class="tool__ic" style="--bg:#330000;--fg:#ff9a00">Ai</span><span><b>Illustrator</b><small>Rótulos, ilustração e arte-final</small></span></li>
+            <li class="tool"><span class="tool__ic" style="--bg:#1e1e1e">
+              <svg viewBox="0 0 38 57" aria-hidden="true"><path fill="#f24e1e" d="M19 0H9.5a9.5 9.5 0 0 0 0 19H19z"/><path fill="#ff7262" d="M19 0h9.5a9.5 9.5 0 0 1 0 19H19z"/><path fill="#a259ff" d="M19 19H9.5a9.5 9.5 0 0 0 0 19H19z"/><circle fill="#1abcfe" cx="28.5" cy="28.5" r="9.5"/><path fill="#0acf83" d="M9.5 38H19v9.5A9.5 9.5 0 1 1 9.5 38z"/></svg></span><span><b>Figma</b><small>Interfaces, fluxos e protótipos</small></span></li>
+            <li class="tool"><span class="tool__ic" style="--bg:#2a1a14">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><g stroke="#d97757" stroke-width="2.4" stroke-linecap="round"><path d="M12 2.5v19M2.5 12h19M5.3 5.3l13.4 13.4M18.7 5.3 5.3 18.7"/><path d="M12 2.5v19" transform="rotate(22.5 12 12)"/><path d="M2.5 12h19" transform="rotate(22.5 12 12)"/></g></svg></span><span><b>Claude</b><small>Pesquisa, textos e protótipos em código</small></span></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -583,7 +610,7 @@ a.tile:active{transform:scale(.98)}
       <footer class="footer">
         <a class="logo" href="#topo">Adrielli <span>Lopes</span></a>
         <span>© 2026 Adrielli Lopes · UX/UI &amp; Design gráfico</span>
-        <nav><a href="#projetos">Projetos</a><a href="#sobre">Sobre</a><a href="#topo">Topo ↑</a></nav>
+        <nav><a href="https://www.behance.net/adrielllimalo" target="_blank" rel="noopener">Behance</a><a href="https://www.linkedin.com/in/adrielli-lima-lopes-326157138/" target="_blank" rel="noopener">LinkedIn</a><a href="#topo">Topo ↑</a></nav>
       </footer>
     </div>
   </section>
@@ -667,22 +694,57 @@ const PROJECTS = [
     img:'img/sache.png', lead:'Apresenta a nova unidade antes da abertura. No verso, um QR Code convida a conhecer a equipe.',
     facts:[['Ocasião','Inauguração'],['Interação','QR Code no verso'],['Cliente','A Fórmula']],
     gallery:[['img/sache.png','Sachê de inauguração Praia Brava']] },
+  { id:'bodysplash', cat:'design', title:'Body Splash A Fórmula', kind:'Rótulo · Linha de fragrâncias', square:true,
+    img:'img/bs-floral-capa.jpg', lead:'Cinco fragrâncias, cada uma com sua cor: Aura, Brisa, Encanto, Desejo e Alma. Flores em traço fino envolvem o frasco, e a paleta muda por fragrância.',
+    facts:[['Linha','5 fragrâncias'],['Linguagem','Floral em traço'],['Volume','100 ml']],
+    gallery:[['img/bs-floral.jpg','A linha completa, uma cor por fragrância.']] },
+  { id:'skincare-fortaleza', cat:'design', title:'Linha Skincare Fortaleza', kind:'Rótulo · Dermocosméticos',
+    img:'img/skin-glow.jpg', lead:'Rótulos de uma linha de skincare manipulada: Protetor Glow Drops FPS 60, Pore Pad, Sérum RegenLift e Tônico Redensificador, com o mesmo gradiente verde-água e hierarquia clara de ativos e uso.',
+    facts:[['Produtos','4 rótulos'],['Destaque','FPS 60 · Glow Drops'],['Cliente','A Fórmula Fortaleza']],
+    gallery:[['img/skin-linha.jpg','Linha completa: protetor, pore pad, sérum e tônico.']] },
+  { id:'dome', cat:'design', title:'Dome Estética Médica', kind:'Rótulo · Marca de clínica', square:true,
+    img:'img/dome-espuma.jpg', lead:'Linha com a marca da clínica Dome, manipulada pela A Fórmula. Grafite, tipografia fina e muito respiro para combinar com o consultório.',
+    facts:[['Produtos','Espuma, vaselina e phytobalm'],['Formato','Rótulos personalizados'],['Parceria','A Fórmula']],
+    gallery:[['img/dome-linha.jpg','Espuma de limpeza suave, vaselina de alta pureza e phytobalm de alta tolerância.']] },
+  { id:'stick-active', cat:'design', title:'A Fórmula Active', kind:'Embalagem · Stick sachê',
+    img:'img/stick-active.jpg', lead:'Stick sachê de dose única com amarelo vibrante sobre preto, para ser reconhecido de longe na bolsa ou na academia.',
+    facts:[['Formato','Stick sachê'],['Uso','Dose única'],['Linha','A Fórmula']],
+    gallery:[['img/stick-active.jpg','Frente e verso do stick sachê Active.']] },
   { id:'simposio-vdc', cat:'eventos', title:'Simpósio Vitória da Conquista', kind:'Evento · Identidade visual',
     img:'img/vdc-backdrop.jpg', lead:'Identidade completa do simpósio Ciência & Saúde da Mulher 40+, da A Fórmula. A ilustração da cidade, com serra, catedral, Cristo e café, conecta todas as peças, do convite ao sorteio.',
     facts:[['Evento','Ciência & Saúde da Mulher 40+'],['Data','08 de outubro · 19h'],['Local','Vitória da Conquista · BA'],['Entrega','13 peças, do digital ao impresso']],
     journeyTitle:'A jornada do convidado',
     journey:[['Convite','Inscrição por QR Code'],['Contagem','Stories de 5 dias até o “hoje”'],['Chegada','Backdrop para fotos'],['Brinde','Eco bag com a cidade'],['Conteúdo','Lâminas por QR Code'],['Jantar','Menu da noite'],['Sorteio','Brindes exclusivos']],
-    covers:[['img/vdc-convite.jpg','Convite do simpósio'],['img/vdc-story-hoje.jpg','Story “é hoje”'],['img/ecobag-vitoria.jpg','Eco bag'],['img/vdc-sorteio.jpg','Sorteio de brindes'],['img/vdc-laminas.jpg','Lâminas por QR Code'],['img/vdc-backdrop-fotos.jpg','Parede de fotos']],
+    covers:[['img/vdc-ecobag-mockup.jpg','Eco bag Vitória da Conquista']],
     gallery:[
       ['img/vdc-convite.jpg','Convite com programação, palestrante e QR Code de inscrição.','half'],
       ['img/vdc-sorteio.jpg','Arte do sorteio de brindes exclusivos com parceiros.','half'],
       ['img/vdc-stories.jpg','Contagem regressiva nos stories: faltam 5, 4, 3, 2, 1… é hoje.'],
       ['img/vdc-backdrop.jpg','Backdrop principal com a ilustração da cidade.','half'],
       ['img/vdc-backdrop-fotos.jpg','Parede de fotos com a marca e recortes da ilustração.','half'],
-      ['img/ecobag-vitoria.jpg','Eco bag entregue aos convidados.','half'],
+      ['img/vdc-ecobag-mockup.jpg','Eco bag entregue aos convidados.','half'],
+      ['img/ecobag-vitoria.jpg','Arte da eco bag: a cidade em ilustração.','half'],
       ['img/vdc-laminas.jpg','Lâminas técnicas para baixar pelo QR Code.','half'],
       ['img/vdc-menu.jpg','Menu do jantar, com o mesmo café e a mesma serra da identidade.','half']
-    ] }
+    ] },
+  { id:'vitalidade-recife', cat:'eventos', title:'Simpósio Vitalidade 360°', kind:'Evento · Recife',
+    img:'img/vit-convite.jpg', lead:'2º Simpósio da A Fórmula em Recife, sobre a conexão entre corpo, mente e intestino. Casario, guarda-sóis e folhagens tropicais trazem a cidade para todas as peças.',
+    facts:[['Tema','Corpo, mente e intestino'],['Data','24 de outubro · 8h'],['Local','JCPM Trade Center · Recife'],['Peças','Convite, programação, credencial, eco bag']],
+    covers:[['img/vit-ecobag.jpg','Eco bag Vitalidade 360°']],
+    gallery:[['img/vit-convite.jpg','Convite do 2º Simpósio Vitalidade 360°.','half'],['img/vit-programacao.jpg','Programação com palestrantes e horários.','half'],['img/vit-credencial.jpg','Credencial e bloco de notas do evento.'],['img/vit-ecobag.jpg','Arte da eco bag com a Recife ilustrada.']] },
+  { id:'sintoma-salvador', cat:'eventos', title:'Simpósio Do Sintoma à Causa', kind:'Evento · Salvador',
+    img:'img/ssc-convite.jpg', lead:'Simpósio em Salvador sobre metabolismo, inflamação, nutrição e longevidade. O Pelourinho, o Farol da Barra e as fitas do Bonfim desenham a identidade.',
+    facts:[['Tema','Metabolismo e longevidade'],['Data','07 de novembro · 8h30'],['Local','Hotel da Bahia · Salvador'],['Peças','Convite, presença confirmada, eco bag']],
+    covers:[['img/ssc-ecobag.jpg','Eco bag Salvador']],
+    gallery:[['img/ssc-convite.jpg','Convite com os palestrantes.','half'],['img/ssc-presenca.jpg','Story de presença confirmada para os convidados.','half'],['img/ssc-ecobag.jpg','Arte da eco bag com Salvador ilustrada.']] },
+  { id:'biotec-fortaleza', cat:'eventos', title:'Biotec World Trends', kind:'Evento · Backdrop',
+    img:'img/biotec-backdrop.jpg', lead:'Backdrop do encontro “Do metabolismo à pele: impactos sistêmicos do GLP-1”, da A Fórmula com a Biotec World Trends, em Fortaleza. Azul profundo, DNA e partículas para um tema de ciência.',
+    facts:[['Tema','GLP-1, do metabolismo à pele'],['Parceria','Biotec World Trends'],['Peça','Backdrop']],
+    gallery:[['img/biotec-backdrop.jpg','Backdrop do evento.']] },
+  { id:'evento-rio', cat:'eventos', title:'Evento A Fórmula Rio', kind:'Evento · Backdrop & lâminas',
+    img:'img/rio-backdrop.jpg', lead:'Backdrop de 3 × 2 m com os números da rede, +120 lojas e 38 anos, e lâminas técnicas de protocolos capilares para os especialistas do evento.',
+    facts:[['Backdrop','3 × 2 m'],['Conteúdo','Protocolos capilares'],['Cliente','A Fórmula Rio de Janeiro']],
+    gallery:[['img/rio-backdrop.jpg','Backdrop 3 × 2 m.'],['img/rio-laminas.jpg','Lâminas de protocolos para alopecias.']] }
 ];
 
 const $ = (s, el=document) => el.querySelector(s);
@@ -713,7 +775,6 @@ const cardHTML = (p, i) => `
 /* ---------- GRADE UX/UI ---------- */
 const grid = $('#grid');
 grid.innerHTML = UX.map(cardHTML).join('');
-$('#n-proj').textContent = PROJECTS.length;
 $('#n-big').textContent = pad(PROJECTS.length);
 
 /* ---------- CATÁLOGO COMPLETO ---------- */
@@ -737,7 +798,10 @@ catalog.addEventListener('click', e => {
 /* ---------- UNIVERSO: capas empilhadas que se espalham ao rolar ---------- */
 const universe = $('#design'), cloud = $('#cloud'), msg = $('.universe__msg'), hint = $('#hint');
 // cada projeto vira uma capa, mais as capas extras (peças do evento); repete só se faltar capa
-const COVERS = DESIGN.flatMap(p => [{id:p.id, img:p.img, title:p.title}, ...(p.covers || []).map(c => ({id:p.id, img:c[0], title:c[1]}))]);
+const coversOf = list => list.flatMap(p => [{id:p.id, img:p.img, title:p.title}, ...(p.covers || []).map(c => ({id:p.id, img:c[0], title:c[1]}))]);
+const rotCovers = coversOf(DESIGN.filter(p => p.cat === 'design')), evCovers = coversOf(DESIGN.filter(p => p.cat === 'eventos'));
+// intercala rótulos e eventos para variar o que aparece lado a lado
+const COVERS = Array.from({length: Math.max(rotCovers.length, evCovers.length)}, (_, i) => [rotCovers[i], evCovers[i]]).flat().filter(Boolean);
 const TILES = Array.from({length: Math.max(10, COVERS.length)}, (_, i) => COVERS[i % COVERS.length]);
 const frac = x => x - Math.floor(x);
 cloud.innerHTML = TILES.map((p, i) => {
@@ -747,10 +811,22 @@ cloud.innerHTML = TILES.map((p, i) => {
       <img src="${p.img}" alt="" loading="lazy"><span>${p.title}</span>
     </button></li>`;
 }).join('');
+// barrinha de progresso dos carrosséis (celular)
+function carouselBar(track, bar){
+  const update = () => {
+    const max = track.scrollWidth - track.clientWidth, vis = track.clientWidth / track.scrollWidth;
+    bar.style.width = `${vis * 100}%`;
+    bar.style.transform = `translateX(${max > 0 ? (track.scrollLeft / max) * (1 / vis - 1) * 100 : 0}%)`;
+  };
+  track.addEventListener('scroll', update, {passive:true});
+  addEventListener('resize', update); addEventListener('load', update);
+}
+carouselBar(cloud, $('#cbar'));
+carouselBar(grid, $('#grid-bar i'));
 cloud.addEventListener('click', e => { const t = e.target.closest('.tile-cover'); if (t) openCase(t.dataset.id); });
 const flights = $$('.flight', cloud).map((el, i, all) => {
-  const ang = (i / all.length) * Math.PI * 2 - Math.PI / 2 + (frac(i * .618) - .5) * .35, r = i % 2 ? 1 : .8;
-  return { el, i, ang, r, z: i % 2 ? .78 + .2 * frac(i * .377) : 1.02 + .2 * frac(i * .377), rot: (frac(i * .71) - .5) * 16, jx: (i % 3 - 1) * 8, jy: (i % 2 ? -1 : 1) * 6, n: all.length };
+  const ring = i % 3, ang = (i / all.length) * Math.PI * 2 - Math.PI / 2 + (frac(i * .618) - .5) * .3, r = [.78, .94, 1.08][ring];
+  return { el, i, ang, r, z: [1.12, .92, .76][ring] + .12 * frac(i * .377), rot: (frac(i * .71) - .5) * 16, jx: (i % 3 - 1) * 8, jy: (i % 2 ? -1 : 1) * 6, n: all.length };
 });
 const clamp01 = v => Math.min(1, Math.max(0, v));
 const easeInOut = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -783,8 +859,7 @@ function setupMotion(){
   if (!motionMQ.matches){ flights.forEach(f => f.el.removeAttribute('style')); msg.removeAttribute('style'); }
   renderUniverse();
 }
-motionMQ.addEventListener('change', setupMotion); setupMotion();
-addEventListener('scroll', () => { if (!uniTicking){ uniTicking = true; requestAnimationFrame(renderUniverse); } }, {passive:true});
+motionMQ.addEventListener('change', setupMotion); setupMotion();addEventListener('scroll', () => { if (!uniTicking){ uniTicking = true; requestAnimationFrame(renderUniverse); } }, {passive:true});
 addEventListener('resize', renderUniverse);
 
 /* ---------- MODAL ---------- */
@@ -830,7 +905,7 @@ addEventListener('scroll', onScroll, {passive:true}); onScroll();
 /* ---------- REVEAL (surge com desfoque, em cascata) ---------- */
 $$('.title').forEach(t => t.innerHTML = t.innerHTML.split(/<br\s*\/?>/i).map(l => `<span class="ln"><span>${l.trim()}</span></span>`).join(''));
 $$('.bento.reveal, .steps.reveal, .skills.reveal').forEach(el => el.classList.remove('reveal'));
-[['.hero__copy > *', .09], ['.hero__side', 0], ['.bento .tile', .06], ['.steps .step', .1], ['.skills > div', .1], ['.checks li', .08]]
+[['.hero__copy > *', .09], ['.hero__side', 0], ['.bento .tile', .06], ['.steps .step', .1], ['.skills > div', .1], ['.checks li', .08], ['.tools .tool', .07]]
   .forEach(([sel, step]) => $$(sel).forEach((el, i) => { el.classList.add('reveal'); el.style.setProperty('--d', `${(i * step).toFixed(2)}s`); }));
 $('.hero__side').style.setProperty('--d', '.3s');
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.1, rootMargin:'0px 0px -40px 0px'});
